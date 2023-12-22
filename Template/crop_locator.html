@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Crop Locator - My Flask App{% endblock %}
+
+{% block content %}
+    <h1>Crop Locator</h1>
+    <p>This page allows you to search for agricultural resource information for counties in Maryland.</p>
+    <p>This data is sourced from the <a href="https://www.nass.usda.gov/Publications/AgCensus/2017/Online_Resources/County_Profiles/Maryland/index.php">United States Department of Agriculture</a></p>
+
+    <form method="POST" action="/crop_locator">
+        <label for="county-filter">Select a county:</label>
+        <select name="county" id="county-filter">
+            <option value="All Counties">All Counties</option>
+            {% for county in counties %}
+                <option value="{{ county }}" {% if selected_county == county %}selected{% endif %}>{{ county }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Market Value ($1,000)</th>
+                <th>Rank in State</th>
+                <th>Counties Producing Item</th>
+                <th>Rank in U.S.</th>
+                <th>County</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in crop_df.iterrows() %}
+                <tr>
+                    <td>{{ row['Item'] }}</td>
+                    <td>{{ row['Market Value of Agricultural Products Sold ($1,000)'] }}</td>
+                    <td>{{ row['Rank in State'] }}</td>
+                    <td>{{ row['Counties Producing Item'] }}</td>
+                    <td>{{ row['Rank in U.S.'] }}</td>
+                    <td>{{ row['County'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

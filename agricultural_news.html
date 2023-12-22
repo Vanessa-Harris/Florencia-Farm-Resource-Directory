@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Agricultural News - My Flask App{% endblock %}
+
+{% block content %}
+    <h1>Farming & Agriculture News</h1>
+    <p>This page displays url destinations to the latest agricultural news relevant to Maryland. Click on the links below to read the news articles.</p>
+    <ul style="list-style: none; padding: 0;">
+        {% for result in search_results %}
+            <li style="margin-bottom: 10px;">
+                <a href="{{ result }}" target="_blank" style="text-decoration: none; color: #007bff;">{{ result }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

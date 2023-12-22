@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Agricultural News - My Flask App{% endblock %}
+
+{% block content %}
+    <h1>Farming & Agriculture FAQs</h1>
+    <p>This page allows you to search for agricultural facts in Maryland. Select a question from the list below and click "Search" to get the relevant information.</p>
+
+    <form method="POST" action="/agricultural_facts">
+        <label for="query">Select a question:</label>
+        <select name="query">
+            <option value="" disabled selected>Select a question</option>
+            {% for question in questions %}
+                <option value="{{ question }}">{{ question }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Search">
+    </form>
+
+    {% if search_results %}
+        <h2>Search Results:</h2>
+        <ul>
+            {% for result in search_results %}
+                <li>
+                    <a href="{{ result }}">{{ result }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
